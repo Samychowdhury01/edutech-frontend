@@ -14,8 +14,8 @@ body {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 144, 72%, 39%;
+    --primary-foreground: 144, 72%, 39%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
@@ -60,6 +60,11 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
 }
 
 @layer base {
@@ -70,3 +75,47 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .hero-background {
+    background-image: url("../assets/hero-bg-image.jpeg");
+    @apply bg-black text-white py-10;
+  }
+}
+
+.classCardContainer {
+  position: relative;
+}
+
+.classCardContainer:before {
+  background: linear-gradient(
+      var(--angle, 0deg),
+      hsla(0, 0%, 100%, 0.5),
+      transparent
+    )
+    border-box;
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  content: "";
+  height: 100%;
+  left: 0;
+  -webkit-mask: linear-gradient(#ffffffde 0 0) padding-box,
+    linear-gradient(#ffffffde 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  position: absolute;
+  top: 0;
+  transition: background 1s;
+  width: 100%;
+}
+
+/* .classCardContainer:hover:before {
+  animation: rotateGradient 3s linear; 
+}
+
+@keyframes rotateGradient {
+  
+  100% {
+    transform: rotate(360deg); 
+  }
+} */
