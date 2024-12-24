@@ -81,6 +81,10 @@ body {
     background-image: url("../assets/hero-bg-image.jpeg");
     @apply bg-black text-white py-10;
   }
+  .countup-bg{
+    background-image: url("../assets/success-story-bg.jpeg");
+    @apply py-10 
+  }
 }
 
 .classCardContainer {
