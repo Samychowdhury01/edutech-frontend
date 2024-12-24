@@ -8,7 +8,7 @@ import LectureSheetSectionContainer from "@/components/home/lecture-sheet-sectio
 import ReviewSectionContainer from "@/components/home/review-section/review-section-container";
 import SchoolBatchSectionContainer from "@/components/home/school-batch-section/school-batch-section-container";
 import SkillDevelopmentSectionContainer from "@/components/home/skill-development-section/skill-development-section-container";
-import Footer from "@/components/ui/footer";
+// import Footer from "@/components/ui/footer";
 
 const HomePage = () => {
   return (
@@ -23,7 +23,7 @@ const HomePage = () => {
       <LectureSheetSectionContainer/>
       <CountUpSection/>
       <AppDownloadSection/>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 };
