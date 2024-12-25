@@ -25,7 +25,7 @@ const CountUpSection = () => {
           {items.map((item, index) => (
             <div
               key={index}
-              className="border-1 col-span-1 flex flex-col items-center justify-center rounded-xl border-white border-opacity-0 bg-[#00000042] p-4 py-2 text-white   md:py-8 "
+              className={`border-1  ${index=== 2 && 'col-span-2 md:col-span-1'} flex flex-col items-center justify-center rounded-xl border-white border-opacity-0 bg-[#00000042] p-4 py-2 text-white   md:py-8 `}
             >
               <h2 className="count text-2xl font-semibold  md:mb-[14px] md:text-[56px] md:leading-[44px]">
                 <CountUp

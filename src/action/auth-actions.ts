@@ -34,7 +34,7 @@ export const login = async (loginInfo: TAuthInfo) => {
   });
   const data = await res.json();
   if (data?.success) {
-    await Cookies.set("token", data?.accessToken);
+    await Cookies.set("token", data?.token);
   }
   return data;
 };
@@ -53,13 +53,14 @@ export const signUp = async (singUpInfo: TAuthInfo) => {
   const data = await res.json();
 
   if (data?.success) {
-    await Cookies.set("token", data?.accessToken);
+    await Cookies.set("token", data?.token);
   }
   return data;
 };
 
 export const logout = async () => {
   const Cookies = await cookies();
+ 
   const res = await fetch(`${process.env.PRODUCTION_SERVER}/auth/logout`, {
     method: "PUT",
     headers: {

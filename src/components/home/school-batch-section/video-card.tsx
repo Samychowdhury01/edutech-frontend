@@ -25,7 +25,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, details, videoLink, thumbn
   };
 console.log(thumbnailUrl);
   return (
-    <Card className="w-full max-w-[353px] transition-all hover:shadow-lg p-3">
+    <Card className="w-full md:max-w-[353px] transition-all hover:shadow-lg p-3">
       <div className="relative aspect-video w-full">
         {!isPlaying ? (
           <div className="relative w-full h-full cursor-pointer group" onClick={handlePlay}>

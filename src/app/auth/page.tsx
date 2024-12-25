@@ -1,3 +1,4 @@
+
 import AuthForm from "@/components/auth/auth-form";
 import AuthPageImageCarousel from "@/components/auth/auth-page-image-carousel";
 import Container from "@/components/ui/Container";

@@ -20,7 +20,7 @@ const AuthPageImageCarousel = () => {
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
   return (
-    <div className="hidden pt-[100px] md:block">
+    <div className="md:pt-[100px] md:block">
       <div className="flex flex-col items-center justify-center mt-12">
         <p className="text-xl font-bold text-center">
           Maintain a routine of studying by participating in daily live classes.

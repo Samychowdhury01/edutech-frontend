@@ -2,7 +2,6 @@
 import { usePathname } from "next/navigation";
 import React from "react";
 import Link from "next/link";
-import { getUserInfo } from "@/action/auth-actions";
 
 const DashboardSideNavbar = () => {
     const user = true;

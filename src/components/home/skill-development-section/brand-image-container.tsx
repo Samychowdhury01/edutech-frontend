@@ -10,13 +10,13 @@ import Image from "next/image";
 const BrandImageContainer = () => {
   const images = [unilever, samsung, brac, IPDC, united, apex];
   return (
-    <div className="mt-8 rounded-xl bg-[#121220] p-6 md:mt-20 md:px-14">
+    <div className="mt-8 rounded-xl bg-[#121220] p-4 md:mt-20 md:px-14 overflow-hidden">
       <p className="mb-6 text-xl text-center text-gray-400">
         The country's best organizations are taking our Corporate Skills
         Development Program
       </p>
       {/* image grid */}
-      <div className="flex min-w-[800px] flex-nowrap justify-between opacity-30">
+      <div className="flex min-w-[800px] flex-wrap md:flex-nowrap justify-between opacity-30">
         {images.map((image, index) => (
           <Image
             alt="brand logo"

@@ -24,12 +24,12 @@ const CollegeBatchSectionContainer = () => {
             icon={<Backpack />}
             color="#306BF4"
           />
-          <div className=" text-center lg:w-[712px] mx-auto">
+          <div className=" text-center mx-auto">
             <h2 className="mb-2 text-2xl font-semibold leading-[32px] md:mb-4 md:text-[44px] md:leading-[56px]">
               For SSC and HSC students
             </h2>
             {/* courses card */}
-            <div className="md:flex md:flex-nowrap gap-6 justify-center mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center mt-10">
             {isLoading ? 
             Array.from({
               length: 3
@@ -38,25 +38,28 @@ const CollegeBatchSectionContainer = () => {
             ))
             :courses?.slice(0,3)?.map((course, index) => (
               <Card
-                key={index}
-                className="md:min-w-[272px] transition-all hover:border-primary rounded bg-transparent"
-              >
+              key={index}
+              className="md:min-w-[272px] transition-all hover:border-primary rounded bg-transparent overflow-hidden"
+            >
+              <div className="relative w-full pt-[55.88%]">
                 <Image
-                  src="https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg?w=272&h=152"
+                  src="https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg"
                   alt="course-thumb"
-                  width={272}
-                  height={152}
-                  className="object-cover rounded-t-lg"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                  priority
                 />
-                <CardHeader className="text-left">
-                  <CardTitle className="text-xl font-semibold line-clamp-2">
-                    {course.name}
-                  </CardTitle>
-                  <CardDescription className="text-lg font-bold text-primary-foreground mt-2">
-                    {course.price}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+              </div>
+              <CardHeader className="text-left">
+                <CardTitle className="text-xl font-semibold line-clamp-2">
+                  {course.name}
+                </CardTitle>
+                <CardDescription className="text-lg font-bold text-primary-foreground mt-2">
+                  {course.price}
+                </CardDescription>
+              </CardHeader>
+            </Card>
             ))}
             </div>
           </div>

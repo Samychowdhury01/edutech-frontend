@@ -9,23 +9,21 @@ import ReviewSectionContainer from "@/components/home/review-section/review-sect
 import SchoolBatchSectionContainer from "@/components/home/school-batch-section/school-batch-section-container";
 import SkillDevelopmentSectionContainer from "@/components/home/skill-development-section/skill-development-section-container";
 import Footer from "@/components/ui/footer";
-import Navbar from "@/components/ui/navbar";
 
 const HomePage = () => {
   return (
     <div>
-      <Navbar/>
       <HeroSectionContainer />
-      <SchoolBatchSectionContainer/>
-      <CollegeBatchSectionContainer/>
-      <SkillDevelopmentSectionContainer/>
-      <AdmissionSectionContainer/>
-      <JobPreparationSectionContainer/>
-      <ReviewSectionContainer/>
-      <LectureSheetSectionContainer/>
-      <CountUpSection/>
-      <AppDownloadSection/>
-      <Footer/>
+      <SchoolBatchSectionContainer />
+      <CollegeBatchSectionContainer />
+      <SkillDevelopmentSectionContainer />
+      <AdmissionSectionContainer />
+      <JobPreparationSectionContainer />
+      <ReviewSectionContainer />
+      <LectureSheetSectionContainer />
+      <CountUpSection />
+      <AppDownloadSection />
+      <Footer />
     </div>
   );
 };

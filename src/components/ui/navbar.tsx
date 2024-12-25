@@ -1,16 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import * as React from "react";
 import Link from "next/link";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import logo from "@/assets/logo.png";
 import Container from "./Container";
-import { getUserInfo, logout } from "@/action/auth-actions";
+import { logout } from "@/action/auth-actions";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-provider";
 
 const SearchBar = () => (
   <div className="relative w-full max-w-xl">
@@ -25,36 +30,20 @@ const SearchBar = () => (
 
 const Navbar = () => {
   const router = useRouter();
-  const [user, setUser] = React.useState<any>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
-console.log(user, 'from nav');
-  //   setting up the user decoded info in state
-  React.useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const userInfo = await getUserInfo();
-        setUser(userInfo);
-      } catch (error) {
-        console.error("Failed to fetch user info:", error);
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserInfo();
-  }, []);
+  const { user, setToken, setUser } = useAuth();
 
   //   handle for logout
   const handleLogout = async () => {
     //   call the logout function from the auth actions
     const removeUser = await logout();
-
-    if (removeUser.success) {
+    console.log(removeUser);
+    if (removeUser) {
+      setUser(null)
+      setToken(null)
       router.push("/");
     }
   };
-
+console.log(user, "from nav")
   const NAV_ITEMS = [
     { label: "Classes 6-12", href: "#" },
     { label: "Skills", href: "#" },
@@ -67,17 +56,9 @@ console.log(user, 'from nav');
   ];
 
   const AuthButton = () => {
-    if (isLoading) {
-      return (
-        <Button size="sm" disabled>
-          Loading...
-        </Button>
-      );
-    }
-
     return (
       <>
-        {!user?.isLoggedIn ? (
+        {!user?.role ? (
           <Link
             href="/auth"
             className="bg-green-600 hover:bg-green-700 text-white text-sm px-5 py-2 rounded-md"
@@ -88,7 +69,7 @@ console.log(user, 'from nav');
           <Button
             onClick={handleLogout}
             size="sm"
-            className="bg-red-600 hover:bg-red-700"
+            className="bg-red-600 hover:bg-red-700 hover:text-white"
           >
             Log out
           </Button>
@@ -109,12 +90,15 @@ console.log(user, 'from nav');
         <div className="flex flex-col h-full">
           <div className="flex items-center justify-between py-4 border-b">
             <Image src={logo} alt="logo" width={100} height={40} />
-            <SheetTrigger asChild>
+            {/* <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
                 <X className="h-6 w-6" />
                 <span className="sr-only">Close menu</span>
               </Button>
-            </SheetTrigger>
+            </SheetTrigger> */}
+            <SheetTitle>
+              <p className="hidden">Mobile Navigation Menu</p>
+            </SheetTitle>
           </div>
           <div className="flex-grow overflow-y-auto py-4">
             <SearchBar />
@@ -131,12 +115,6 @@ console.log(user, 'from nav');
             </nav>
           </div>
           <div className="border-t py-4">
-            <Link
-              href="tel:16910"
-              className="block mb-4 text-sm font-medium text-green-600"
-            >
-              16910
-            </Link>
             <AuthButton />
           </div>
         </div>
@@ -150,7 +128,9 @@ console.log(user, 'from nav');
         <div className="container flex h-16 items-center justify-between gap-2">
           <div className="flex items-center gap-4">
             <MobileMenu />
-            <Image src={logo} alt="logo" width={100} height={40} />
+            <Link href="/">
+              <Image src={logo} alt="logo" width={100} height={40} />
+            </Link>
           </div>
 
           <div className="hidden md:block flex-1 px-4">

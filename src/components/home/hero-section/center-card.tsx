@@ -21,7 +21,7 @@ const CenterCard = () => {
         link="Book a free class"
       >
         {/* location card */}
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-2 overflow-hidden">
           {location.map((i, index) => (
             <div
               key={index}

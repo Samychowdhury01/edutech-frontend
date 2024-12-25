@@ -26,7 +26,7 @@ const OfflineCourseCard = () => {
               {imgArray.map((img, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-1 md:basis-1/2 lg:basis-1/5"
+                  className="pl-1 basis-1/3 md:basis-auto"
                 >
                   <Image
                     alt="offline-course-we-provides"
