@@ -1,6 +1,7 @@
 import AuthForm from "@/components/auth/auth-form";
 import AuthPageImageCarousel from "@/components/auth/auth-page-image-carousel";
 import Container from "@/components/ui/Container";
+import Footer from "@/components/ui/footer";
 import React from "react";
 
 const AuthPage = () => {
@@ -10,6 +11,7 @@ const AuthPage = () => {
         <AuthForm />
         <AuthPageImageCarousel />
       </div>
+      <Footer/>
     </Container>
   );
 };

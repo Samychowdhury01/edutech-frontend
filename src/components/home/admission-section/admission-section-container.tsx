@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Container from "@/components/ui/Container";
 import SectionTitleWithIcon from "@/components/ui/section-title-with-icon";
@@ -11,7 +12,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { useGetCourses } from "@/hook/useGetCourses";
+import CourseCardSkeleton from "@/components/ui/card-loading-skeleton";
 const AdmissionSectionContainer = () => {
+  const { data, isLoading } = useGetCourses();
   return (
     <div className="bg-[#F4F7FD]">
       <Container>
@@ -34,20 +38,29 @@ const AdmissionSectionContainer = () => {
               className="mt-14 mb-6 pb-12"
             >
               <CarouselContent>
-                {Array.from({
-                  length: 6,
-                }).map((_, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="md:basis-1/2 lg:basis-auto overflow-hidden"
-                  >
-                    <CourseCard
-                      course={""}
-                      isBordered={false}
-                      isBgExist={false}
-                    />
-                  </CarouselItem>
-                ))}
+                {isLoading
+                  ? Array.from({
+                      length: 5,
+                    }).map((__, index) => (
+                      <CarouselItem
+                        key={index}
+                        className="md:basis-1/2 lg:basis-auto overflow-hidden"
+                      >
+                        <CourseCardSkeleton />
+                      </CarouselItem>
+                    ))
+                  : data?.map((course) => (
+                      <CarouselItem
+                        key={course?._id}
+                        className="md:basis-1/2 lg:basis-auto overflow-hidden"
+                      >
+                        <CourseCard
+                          course={course}
+                          isBordered={false}
+                          isBgExist={false}
+                        />
+                      </CarouselItem>
+                    ))}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />

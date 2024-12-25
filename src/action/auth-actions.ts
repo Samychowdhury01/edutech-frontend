@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { TAuthInfo } from "@/types/auth.types";
+import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
 // Check if email exists in the database
@@ -54,4 +56,40 @@ export const signUp = async (singUpInfo: TAuthInfo) => {
     await Cookies.set("token", data?.accessToken);
   }
   return data;
+};
+
+export const logout = async () => {
+  const Cookies = await cookies();
+  const res = await fetch(`${process.env.PRODUCTION_SERVER}/auth/logout`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${await Cookies.get("token")?.value}`,
+    },
+  });
+  const data = await res.json();
+  if (data?.success) {
+    await Cookies.delete("token");
+  }
+  return data;
+};
+
+// get user info from token
+export const getUserInfo = async () => {
+  const Cookies = await cookies();
+  const token = await Cookies.get("token")?.value;
+  let decodedData = null;
+  if (token) {
+    decodedData = (await jwtDecode(token)) as any;
+
+    return decodedData;
+  } else {
+    return null;
+  }
+};
+
+export const getToken = async () => {
+  const Cookies = await cookies();
+  const token = await Cookies.get("token")?.value;
+  return token;
 };

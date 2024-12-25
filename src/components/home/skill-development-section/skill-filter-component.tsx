@@ -9,7 +9,10 @@ import {
 } from "@/components/ui/carousel";
 import CourseCard from "@/components/ui/course-card";
 import { Button } from "@/components/ui/button";
+import { useGetCourses } from "@/hook/useGetCourses";
+import CourseCardSkeleton from "@/components/ui/card-loading-skeleton";
 const SkillFilterComponent = () => {
+  const { data: courses, isLoading } = useGetCourses();
   const filterOptions = [
     {
       name: "Language Learning",
@@ -72,19 +75,35 @@ const SkillFilterComponent = () => {
         className="mt-14 mb-6 pb-12"
       >
         <CarouselContent>
-          {Array.from({
-            length: 5,
-          }).map((_, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-auto">
-              <CourseCard course={""} isBordered={false} isBgExist={true} />
-            </CarouselItem>
-          ))}
+          {isLoading
+            ? Array.from({
+                length: 6,
+              }).map((__, index) => (
+                <CarouselItem
+                  key={index}
+                  className="md:basis-1/2 lg:basis-auto"
+                >
+                  <CourseCardSkeleton />
+                </CarouselItem>
+              ))
+            : courses?.map((course) => (
+                <CarouselItem
+                  key={course._id}
+                  className="md:basis-1/2 lg:basis-auto"
+                >
+                  <CourseCard
+                    course={course}
+                    isBordered={false}
+                    isBgExist={true}
+                  />
+                </CarouselItem>
+              ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
       </Carousel>
       <div className="flex items-center justify-center">
-      <Button className="font-medium py-3 pl-7 pr-5">All Courses</Button>
+        <Button className="font-medium py-3 pl-7 pr-5">All Courses</Button>
       </div>
     </>
   );

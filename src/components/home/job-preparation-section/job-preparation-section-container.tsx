@@ -1,7 +1,7 @@
+"use client"
 import React from "react";
 import Container from "@/components/ui/Container";
 import SectionTitleWithIcon from "@/components/ui/section-title-with-icon";
-import { GraduationCap } from "lucide-react";
 import CourseCard from "@/components/ui/course-card";
 import {
   Carousel,
@@ -11,22 +11,26 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { Luggage } from "lucide-react";
+import { useGetCourses } from "@/hook/useGetCourses";
+import CourseCardSkeleton from "@/components/ui/card-loading-skeleton";
+
 const JobPreparationSectionContainer = () => {
+  const { data, isLoading } = useGetCourses();
   return (
-    <div className="bg-[#F4F7FD]">
+    
       <Container>
         <div className="py-8 md:py-[120px]">
           <SectionTitleWithIcon
-            text="Admission test"
-            icon={<GraduationCap />}
-            color="#9D27FA"
+            text="Job Preparation"
+            icon={<Luggage />}
+            color="#6572EF"
           />
           <div className="text-center">
             <h2 className="mb-2 text-2xl font-semibold leading-[32px] md:mb-4 md:text-[44px] md:leading-[56px]">
-              Complete preparation for your dream university
+            Maximum preparation for government jobs
             </h2>
             {/* courses card */}
-
             <Carousel
               opts={{
                 align: "start",
@@ -34,20 +38,29 @@ const JobPreparationSectionContainer = () => {
               className="mt-14 mb-6 pb-12"
             >
               <CarouselContent>
-                {Array.from({
-                  length: 6,
-                }).map((_, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="md:basis-1/2 lg:basis-auto overflow-hidden"
-                  >
-                    <CourseCard
-                      course={""}
-                      isBordered={false}
-                      isBgExist={false}
-                    />
-                  </CarouselItem>
-                ))}
+                {isLoading
+                  ? Array.from({
+                      length: 5,
+                    }).map((__, index) => (
+                      <CarouselItem
+                        key={index}
+                        className="md:basis-1/2 lg:basis-auto overflow-hidden"
+                      >
+                        <CourseCardSkeleton />
+                      </CarouselItem>
+                    ))
+                  : data?.map((course) => (
+                      <CarouselItem
+                        key={course?._id}
+                        className="md:basis-1/2 lg:basis-auto overflow-hidden"
+                      >
+                        <CourseCard
+                          course={course}
+                          isBordered={false}
+                          isBgExist={false}
+                        />
+                      </CarouselItem>
+                    ))}
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -58,7 +71,7 @@ const JobPreparationSectionContainer = () => {
           </div>
         </div>
       </Container>
-    </div>
+    
   );
 };
 

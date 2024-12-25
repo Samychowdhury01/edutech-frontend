@@ -1,3 +1,4 @@
+"use client"
 import Container from "@/components/ui/Container";
 import SectionTitleWithIcon from "@/components/ui/section-title-with-icon";
 import { Backpack } from "lucide-react";
@@ -9,34 +10,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { useGetCourses } from "@/hook/useGetCourses";
+import CourseCardSkeleton from "@/components/ui/card-loading-skeleton";
 
 const CollegeBatchSectionContainer = () => {
-  const courses = [
-    {
-      img: "https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg?w=272&h=152",
-      title: "HSC 26 Online Batch (Physics, Chemistry, Math, Biology)",
-      price: "৳ 3500",
-    },
-    {
-      img: "https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg?w=272&h=152",
-      title: "HSC 26 Online Batch (Physics, Chemistry, Math, Biology)",
-      price: "৳ 3500",
-    },
-    {
-      img: "https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg?w=272&h=152",
-      title: "HSC 26 Online Batch (Physics, Chemistry, Math, Biology)",
-      price: "৳ 3500",
-    },
-    {
-      img: "https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg?w=272&h=152",
-      title: "HSC 26 Online Batch (Physics, Chemistry, Math, Biology)",
-      price: "৳ 3500",
-    }
-  ];
+  const {data: courses, isLoading} = useGetCourses()
   return (
     <div className="bg-[#F4F7FD]">
       <Container>
-        <div className="py-8 md:py-[120px]">
+        <div className="py-8 md:py-[120px] over">
           <SectionTitleWithIcon
             text="SSC & HSC"
             icon={<Backpack />}
@@ -48,13 +30,19 @@ const CollegeBatchSectionContainer = () => {
             </h2>
             {/* courses card */}
             <div className="md:flex md:flex-nowrap gap-6 justify-center mt-10">
-            {courses.map((course, index) => (
+            {isLoading ? 
+            Array.from({
+              length: 3
+            }).map((__, index)=>(
+              <CourseCardSkeleton key={index}/>
+            ))
+            :courses?.slice(0,3)?.map((course, index) => (
               <Card
                 key={index}
                 className="md:min-w-[272px] transition-all hover:border-primary rounded bg-transparent"
               >
                 <Image
-                  src={course.img}
+                  src="https://cdn.10minuteschool.com/images/thumbnails/HSC_26_OB_Thumbnails/hsc-2026-online-batch-science-group-thumbnail.jpg?w=272&h=152"
                   alt="course-thumb"
                   width={272}
                   height={152}
@@ -62,7 +50,7 @@ const CollegeBatchSectionContainer = () => {
                 />
                 <CardHeader className="text-left">
                   <CardTitle className="text-xl font-semibold line-clamp-2">
-                    {course.title}
+                    {course.name}
                   </CardTitle>
                   <CardDescription className="text-lg font-bold text-primary-foreground mt-2">
                     {course.price}
